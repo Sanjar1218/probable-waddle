@@ -14,3 +14,23 @@ def add(request):
     )
     phone.save()
     return JsonResponse({'status': 'ok'})
+
+def get(request):
+
+    phones = Mobile.objects.filter(name__icontains='Apple')
+    products_json = []
+    for product in phones:
+        products_json.append({
+            'id': product.id,
+            'name': product.name,
+            'company': product.company,
+            'color': product.color,
+            'RAM': product.ram,
+            'memory': product.memory,
+            'price': product.price,
+            'img_url': product.img_url,
+            
+        })
+
+    return JsonResponse({'products': products_json[:3]})
+
